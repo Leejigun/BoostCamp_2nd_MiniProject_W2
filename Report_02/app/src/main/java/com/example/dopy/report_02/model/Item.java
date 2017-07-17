@@ -27,7 +27,7 @@ public class Item {
     @DatabaseField
     private int recent; //최신순
     @DatabaseField
-    private Boolean clicked;
+    private Boolean favorite;
 
     public Item() {
     }
@@ -39,7 +39,7 @@ public class Item {
         this.distance = distance;
         this.popularity = popularity;
         this.recent = recent;
-        clicked=false;
+        this.favorite=false;
     }
 
     public int get_id() {
@@ -58,11 +58,14 @@ public class Item {
         return imagePath;
     }
 
-    public Boolean getClicked() {
-        return clicked;
+    public Boolean getFavorite() {
+        return favorite;
     }
 
-    public void clicked(){
-        clicked=!clicked;
+    /*TODO: naming
+    click이 의미하는 바가 잘 모르겠습니다.
+    click이후의 상태값을 의미하는거면 click이란 네이밍보다 다른 것으로 선언하는것이 좋을 거 같습니다.*/
+    public void clickFavoriteMark(){
+        favorite=!favorite;
     }
 }

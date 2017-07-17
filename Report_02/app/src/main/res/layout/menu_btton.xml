@@ -39,6 +39,6 @@
         android:id="@+id/imgChangeLayout"
         android:layout_width="46dp"
         android:layout_height="45dp"
-        app:srcCompat="@drawable/order_linear" />
+        app:srcCompat="@drawable/layout_selector" />
 
 </LinearLayout>

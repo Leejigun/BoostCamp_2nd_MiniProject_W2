@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by Dopy on 2017-07-14.
  */
 
-public class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.baseViewHolder> {
+public class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.RestaurantViewHolder> {
 
     ArrayList<Item> arrayList;
     Context context;
@@ -29,12 +29,12 @@ public class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.baseVi
     }
 
     @Override
-    public baseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new baseViewHolder(LayoutInflater.from(context).inflate(R.layout.item_cardview,parent,false));
+    public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new RestaurantViewHolder(LayoutInflater.from(context).inflate(R.layout.item_cardview,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(baseViewHolder holder, int position) {
+    public void onBindViewHolder(RestaurantViewHolder holder, int position) {
         holder.bindView(arrayList.get(position));
     }
 
@@ -43,13 +43,16 @@ public class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.baseVi
         return arrayList.size();
     }
 
-    class baseViewHolder extends RecyclerView.ViewHolder{
+    /*TODO: Clearly naming
+    Class명이 첫 문자가 소문자인 부분을 확인 해주시기 바랍니다.
+    또한, Base인 경우는 해당 VH의 사용용도가 불분명하니 명확한 네이밍을 사용해주시기 바랍니다.*/
+    class RestaurantViewHolder extends RecyclerView.ViewHolder{
         ImageView imgView;
         TextView name;
         TextView contents;
         ImageView imgClick;
 
-        public baseViewHolder(View itemView) {
+        public RestaurantViewHolder(View itemView) {
             super(itemView);
             imgView=(ImageView)itemView.findViewById(R.id.imgMain);
             name=(TextView)itemView.findViewById(R.id.txtName);
@@ -61,7 +64,7 @@ public class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.baseVi
             imgView.setImageResource(item.getImagePath());
             name.setText(item.getName());
             contents.setText(item.getContents());
-            if(item.getClicked()){
+            if(item.getFavorite()){
                 imgClick.setImageResource(R.drawable.ic_clicked);
             }else{
                 imgClick.setImageResource(R.drawable.ic_click);
@@ -71,7 +74,7 @@ public class ItemViewAdapter extends RecyclerView.Adapter<ItemViewAdapter.baseVi
                 @Override
                 public void onClick(View view) {
                     Log.d("BaseViewHolder","Clocked imgListener");
-                    item.clicked();
+                    item.clickFavoriteMark();
                     DataBaseManager.getInstance().updateData(item);
                     bindView(item);
                 }

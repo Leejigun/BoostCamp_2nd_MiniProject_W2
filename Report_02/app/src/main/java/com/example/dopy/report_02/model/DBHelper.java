@@ -18,15 +18,15 @@ import java.util.ArrayList;
  * Created by Dopy on 2017-07-13.
  * http://dunkinpender.tistory.com/4
  */
-
+/*TODO: version reset
+        테스트때마다 버젼을 올리는것을 좋지만,
+        최종 PR시에는 처음 릴리즈 되었다는 것을 생각하여 버젼을 1로 초기화해서 진행해도 좋습니다.
+        (마켓에 기 릴리즈된 앱을 수정하는 것이 아니기때문입니다.)*/
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "restaurant.db";
-    private static final int DATABASE_VERSION = 16;
-    DBHelper DataBasehelper;
-    private static final int ORDER_BY_DISTANCE=101;
-    private static final int ORDER_BY_POPULARITY=102;
-    private static final int ORDER_BY_RECENT=103;
+    private static final int DATABASE_VERSION = 1;
     Context context;
+
     private Dao<Item, Integer> mRestaurant;
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,7 +57,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
                     "Unable to upgrade database from version " + oldVersion + " to new " + newVersion, e);
         }
     }
-
     public Dao<Item, Integer> getStandardInfosDao() throws SQLException {
         if (mRestaurant == null) {
             mRestaurant = getDao(Item.class);

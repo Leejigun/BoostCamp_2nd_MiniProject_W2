@@ -27,6 +27,13 @@ import java.util.ArrayList;
 
 import static android.R.color.holo_green_light;
 
+/*TODO ORMlite를 사용한 이유
+* 처음에는 SQL lite로 코딩을 시작했는데, 저번주 튜터링에서 ORM에 대해서 언급하신 것을 생각해서 수정했습니다.
+* 또한 ORM에 대해서 검색하던 중 http://iw90.tistory.com/114에서 다양한 ORM들을 분석한 글을 읽게 되었고
+* 가장 commit이 활발하고 잘 정리되어 있어서 여러 블로그를 따라서 작성하게 되었습니다.
+* */
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     RecyclerView recyclerView;
@@ -55,7 +62,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 //데이터 베이스 생성
         DataBaseManager.init(this);
-        test();
 
 //       리사이클러뷰 생성
         recyclerView=(RecyclerView)findViewById(R.id.rcvItems);
@@ -74,14 +80,13 @@ public class MainActivity extends AppCompatActivity
         setUpButtonListener();
 
     }
-    public void test(){
-        Log.d("DataBase_test","printAllData order by distance");
-        ArrayList<Item> arrayList=DataBaseManager.getInstance().select("distance");
-        for(int i=0;i<arrayList.size();i++){
-            Log.d("TEST","_id:"+arrayList.get(i).get_id()+" name:"+arrayList.get(i).getName());
-        }
-    }
+    /*TODO:remove test code
+    최종 Commit 또는 PR하기전에는 테스트 코드는 제외 해주길 바랍니다.*/
 
+
+    /*TODO: selector
+    클릭될때마다 boolean 체크로 resource를 코드로 변경하지 않고,
+    Check/UnCheck 또는 Select/UnSelect의 값을 가지고 Resource에서 Selector를 만들어서 변경을 할 수 있습니다.*/
     public void setUpButtonListener(){
         //레이아웃 변경 액션 리스너
         imgCangeLayout.setOnClickListener(new View.OnClickListener() {
@@ -89,11 +94,9 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(layout_linear){
                     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1));
-                    imgCangeLayout.setImageResource(R.drawable.order_staggered);
                     layout_linear=!layout_linear;
                 }else{
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    imgCangeLayout.setImageResource(R.drawable.order_linear);
                     layout_linear=!layout_linear;
                 }
             }
@@ -176,13 +179,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_Linear) {
             if(!layout_linear) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                imgCangeLayout.setImageResource(R.drawable.order_linear);
                 layout_linear = !layout_linear;
             }
         } else if (id == R.id.nav_stagg) {
             if(layout_linear){
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1));
-                imgCangeLayout.setImageResource(R.drawable.order_staggered);
                 layout_linear=!layout_linear;
             }
         }

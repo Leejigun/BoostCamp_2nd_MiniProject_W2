@@ -4,13 +4,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_distance"
-            android:title="거리순" />
+            android:title="@string/distance" />
         <item
             android:id="@+id/nav_popularity"
-            android:title="인기순" />
+            android:title="@string/popularity" />
         <item
             android:id="@+id/nav_recent"
-            android:title="최신순" />
+            android:title="@string/recent" />
     </group>
 
     <item android:title="Layout">
